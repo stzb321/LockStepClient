@@ -38,6 +38,7 @@ namespace Assets.scripts
         {
             if (!IsSocketConnected())
             {
+                Console.WriteLine("send faild, tcpsocket not connected!");
                 return;
             }
 
@@ -48,7 +49,7 @@ namespace Assets.scripts
 
         private bool IsSocketConnected()
         {
-            return Client.Client.Poll(1000, SelectMode.SelectRead) && Client.Available == 0;
+            return Client.Client.Connected;
         }
 
         public override void StopSocket()
