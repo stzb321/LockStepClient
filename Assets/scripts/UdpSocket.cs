@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using LockStepFrameWork.NetMsg;
 
 namespace Assets.scripts
 {
@@ -41,10 +42,9 @@ namespace Assets.scripts
             });
         }
 
-        public override void SendTo(string data)
+        public override void SendTo(byte[] buf)
         {
-            byte[] buffer = Encoding.UTF8.GetBytes(data);
-            udpClient.Send(buffer, buffer.Length, endPoint);
+            udpClient.Send(buf, buf.Length, endPoint);
         }
 
         public override void StopSocket()

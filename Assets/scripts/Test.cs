@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.scripts;
 using UnityEngine.UI;
+using LockStepFrameWork.NetMsg;
 
 public class Test : MonoBehaviour
 {
@@ -26,7 +27,9 @@ public class Test : MonoBehaviour
 
     public void OnClick()
     {
-        string s = text.text;
-        socket.SendTo(s);
+        Msg_C2S_Ping msg = new Msg_C2S_Ping();
+        msg.Tick = 2;
+        Packet packet = new Packet(MsgType.C2S_Ping, msg);
+        socket.SendTo(PacketParser.SerializeToByteArray(packet));
     }
 }

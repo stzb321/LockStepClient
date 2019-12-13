@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using LockStepFrameWork.NetMsg;
 
 namespace Assets.scripts
 {
@@ -34,7 +35,7 @@ namespace Assets.scripts
             });
         }
 
-        public override void SendTo(string data)
+        public override void SendTo(byte[] buf)
         {
             if (!IsSocketConnected())
             {
@@ -42,9 +43,8 @@ namespace Assets.scripts
                 return;
             }
 
-            byte[] message = Encoding.UTF8.GetBytes(data);
             NetworkStream stream = Client.GetStream();
-            stream.BeginWrite(message, 0, message.Length, null, null);
+            stream.BeginWrite(buf, 0, buf.Length, null, null);
         }
 
         private bool IsSocketConnected()
